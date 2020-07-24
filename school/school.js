@@ -19,12 +19,23 @@ var address;
 
 var sql = 'SELECT * FROM school';
 // Display all users
+
 app.get('/school/getSchoolList', (request, response) => {
     con.query(sql, (error, result) => {
         if (error) throw error;
  
         response.send(result);
     });
+});
+
+app.post('/School', function(req, res){
+
+    console.log("Hi")
+  var postData  = req.body;
+ con.query('INSERT INTO school SET ? ', postData, function (error, results, fields) {
+  if (error) throw error;
+  res.end(JSON.stringify(results));
+});
 });
 
 app.get('/school/getSchoolById/:id', (request, response) => {
